@@ -1,15 +1,24 @@
-import requests  # Importamos el "teléfono"
+import requests
 
-# La URL de la API (el "menú" del restaurante)
-url = "https://rickandmortyapi.com/api/character/1"
+url = "https://rickandmortyapi.com/api/character/3"
 
-# Hacemos la petición (le pedimos al camarero el plato 1)
-respuesta = requests.get(url)
+try:
+    respuesta = requests.get(url, timeout=10)
+    respuesta.raise_for_status()  # lanza HTTPError si no es 200-299
 
-# Convertimos la respuesta en un formato que Python entienda (JSON)
-datos = respuesta.json()
+    datos = respuesta.json()
 
-# Ahora podemos usar los datos como si fueran un diccionario de Python
-print(f"El personaje es: {datos['name']}")
-print(f"Especie: {datos['species']}")
-print(f"Estado: {datos['status']}")
+    print(f"El personaje es: {datos.get('name', 'Desconocido')}")
+    print(f"Especie: {datos.get('species', 'Desconocida')}")
+    print(f"Estado: {datos.get('status', 'Desconocido')}")
+
+except requests.exceptions.Timeout:
+    print("❌ Se agotó el tiempo de espera (timeout).")
+except requests.exceptions.ConnectionError:
+    print("❌ No se pudo conectar. ¿Tenés internet o estás bloqueado por proxy/firewall?")
+except requests.exceptions.HTTPError as e:
+    print(f"❌ Error HTTP: {e} (status {respuesta.status_code})")
+except ValueError:
+    print("❌ La respuesta no era JSON válido.")
+except Exception as e:
+    print(f"❌ Error inesperado: {e}")
