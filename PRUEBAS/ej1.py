@@ -1,6 +1,6 @@
 import requests
 
-url = "https://rickandmortyapi.com/api/character/3"
+url = "https://rickandmortyapi.com/api/character/5"
 
 try:
     respuesta = requests.get(url, timeout=10)
