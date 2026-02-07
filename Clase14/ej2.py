@@ -1,7 +1,5 @@
 #Meto todo dentro de un WHILE INFINITO, y lo obligo a que de un NUMERO CORRECTO.
 #Si no, sigue pidiendo y pidiendo hasta agotas los intentos. Si se agotan, se sale del programa.
-# 
-
 
 intentos = 3
 while intentos > 0:
