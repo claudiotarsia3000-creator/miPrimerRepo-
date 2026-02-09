@@ -18,6 +18,9 @@ def calcular_total(descuento=0, *productos):
 
     """
 
+    if not 0 <= descuento <= 100:
+        raise ValueError("El descuento debe estar entre 0 y 100.")
+
     subtotal = sum(productos)
 
     descuento_aplicado = subtotal * (descuento / 100)
@@ -73,20 +76,12 @@ def generar_ticket(nombre_cliente, *productos, descuento=10):
 
     # Construir ticket
 
-    ticket = f"""
-
-========= TICKET =========
-
+    ticket = f"""========= TICKET =========
 Cliente: {nombre_cliente}
-
 Productos: {productos_str}
-
 Subtotal: ${resultado['subtotal']:.2f}
-
 Descuento ({descuento}%): -${resultado['descuento_aplicado']:.2f}
-
 TOTAL: ${resultado['total']:.2f}
-
 =========================="""
 
 
@@ -94,32 +89,23 @@ TOTAL: ${resultado['total']:.2f}
 
 
 
-# ===== PRUEBAS =====
+if __name__ == "__main__":
+    # ===== PRUEBAS =====
+    print("=== Prueba calcular_total ===")
 
-print("=== Prueba calcular_total ===")
+    resultado1 = calcular_total(10, 100, 50, 25)
+    print(f"Con 10% descuento: {resultado1}")
 
-resultado1 = calcular_total(10, 100, 50, 25)
+    resultado2 = calcular_total(0, 100, 200)
+    print(f"Sin descuento: {resultado2}")
 
-print(f"Con 10% descuento: {resultado1}")
+    print("\n=== Prueba generar_ticket ===")
 
+    ticket1 = generar_ticket("María", 100, 50, 75)
+    print(ticket1)
 
-resultado2 = calcular_total(0, 100, 200)
+    ticket2 = generar_ticket("Carlos", 200, 150, 50, 25, descuento=15)
+    print(ticket2)
 
-print(f"Sin descuento: {resultado2}")
-
-
-print("\n=== Prueba generar_ticket ===")
-
-ticket1 = generar_ticket("María", 100, 50, 75)
-
-print(ticket1)
-
-
-ticket2 = generar_ticket("Carlos", 200, 150, 50, 25, descuento=15)
-
-print(ticket2)
-
-
-ticket3 = generar_ticket("Ana", 99.99, descuento=5)
-
-print(ticket3)
+    ticket3 = generar_ticket("Ana", 99.99, descuento=5)
+    print(ticket3)
