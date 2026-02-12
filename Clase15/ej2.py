@@ -1,14 +1,6 @@
-
-"""
-titulo :string  
-prioridad :alto medio baja
-categoria :string 
-Invalido > raise ValueError("El título no puede estar vacío.")
-Invalido > raise ValueError("La pr    y 5.")
-Invalido > raise ValueError("La categoría no puede estar vacía.")       
-
-valido > return diccionario con los datos ingresados
-"""
+# def creat_tarea(titulo,prioridad):
+#     if titutlo == '':
+#         raise TituloVacioError('la tarea necesita un titulo ')
 
 def crear_tarea(titulo, prioridad, categoria):
     if not isinstance(titulo, str) or not len (titulo.strip()) == 0:
@@ -28,10 +20,3 @@ def crear_tarea(titulo, prioridad, categoria):
 
 print(crear_tarea("Estudiar Python", "alta", "Estudio"))    
 print(crear_tarea(" ", "media", "Salud"))
-
-
-
-
-
- 
-
